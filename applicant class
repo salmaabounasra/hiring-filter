@@ -1,4 +1,5 @@
-The HiringFilter class acts as the entry point of the program. It handles the main logic of reading applicant data, calculating scores, and displaying the top candidates. This file will mainly consist of the main method and interaction with other classes.
+The Applicant class encapsulates an applicant's information (first name, last name, major, languages, GPA, and score). 
+It includes a constructor to initialize applicant details and a method to calculate the applicant's score based on predefined criteria.
 // File: Applicant.java
 
 import java.util.Arrays;
