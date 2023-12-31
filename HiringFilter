@@ -1,0 +1,26 @@
+The HiringFilter class acts as the entry point of the program. It handles the main logic of reading applicant data, calculating scores, 
+and displaying the top candidates. This file will mainly consist of the main method and interaction with other classes.
+
+// File: HiringFilter.java
+
+import java.io.IOException;
+import java.util.List;
+
+public class HiringFilter {
+    public static void main(String[] args) {
+        try {
+            List<Applicant> applicants = FileReaderUtil.readApplicantsFromFile("applicant_data.csv"); // Replace with actual file path
+
+            // Sort applicants based on score
+            applicants.sort((a1, a2) -> Double.compare(a2.score, a1.score));
+
+            // Print top 10 applicants
+            for (int i = 0; i < Math.min(10, applicants.size()); i++) {
+                System.out.println(applicants.get(i));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
