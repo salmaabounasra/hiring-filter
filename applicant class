@@ -1,0 +1,58 @@
+The HiringFilter class acts as the entry point of the program. It handles the main logic of reading applicant data, calculating scores, and displaying the top candidates. This file will mainly consist of the main method and interaction with other classes.
+// File: Applicant.java
+
+import java.util.Arrays;
+
+public class Applicant {
+    String firstName;
+    String lastName;
+    String major;
+    String languages;
+    double GPA;
+    double score;
+
+    public Applicant(String firstName, String lastName, String major, String languages, double GPA) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.major = major;
+        this.languages = languages;
+        this.GPA = GPA;
+        this.score = calculateScore();
+    }
+
+    private double calculateScore() {
+        double score = 0;
+
+        // Major (40% of total score)
+        if (Arrays.asList("CS", "CE", "CIS", "IST").contains(major)) {
+            score += 40;
+        }
+
+        // Java Proficiency (30% of total score)
+        if (languages.contains("Java")) {
+            score += 30;
+        }
+
+        // GPA (20% of total score)
+        score += (GPA / 4.0) * 20;
+
+        // Other Programming Languages (10% of total score)
+        String[] otherLanguages = languages.split(" ");
+        int additionalLanguages = (languages.contains("Java")) ? otherLanguages.length - 1 : otherLanguages.length;
+        score += Math.min(additionalLanguages, 10);
+
+        return score;
+    }
+
+    @Override
+    public String toString() {
+        return "Applicant{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", major='" + major + '\'' +
+                ", languages='" + languages + '\'' +
+                ", GPA=" + GPA +
+                ", score=" + score +
+                '}';
+    }
+}
