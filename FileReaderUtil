@@ -1,0 +1,42 @@
+This utility class will handle file reading operations. It contains a method to read applicant data from a CSV file, 
+ensuring correct mappings of CSV fields and creating Applicant objects.
+
+
+// File: FileReaderUtil.java
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class FileReaderUtil {
+    public static List<Applicant> readApplicantsFromFile(String filename) throws IOException {
+        List<Applicant> applicants = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+        String line;
+        br.readLine(); // skip header
+
+        while ((line = br.readLine()) != null) {
+            String[] values = line.split(",");
+            // Ensure correct mapping of CSV fields
+            String firstName = values[1].trim();
+            String lastName = values[0].trim();
+            String major = values[9].trim();
+            String languages = values[7].trim();
+            double GPA;
+
+            try {
+                GPA = Double.parseDouble(values[8].trim());
+            } catch (NumberFormatException e) {
+                // Skip applicant if GPA is invalid
+                continue;
+            }
+
+            applicants.add(new Applicant(firstName, lastName, major, languages, GPA));
+        }
+
+        br.close();
+        return applicants;
+    }
+}
